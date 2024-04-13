@@ -34,7 +34,7 @@ var userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    address: [{ type: mongoose.Types.ObjectId, ref: "Address" }],
+    address: [{ type: Array, default: [] }],
     wishlist: [{ type: mongoose.Types.ObjectId, ref: "Product" }],
     isBlocked: {
       type: Boolean,
@@ -69,15 +69,15 @@ userSchema.methods = {
   isCorrectPassword: async function (password) {
     return await bcrypt.compare(password, this.password);
   },
-  // createChangePassword: function () {
-  //   const resetToken = crypto.randomBytes(32).toString("hex");
-  //   this.passwordResetToken = crypto
-  //     .createHash("sha256")
-  //     .update(resetToken)
-  //     .digest("hex");
-  //   this.passwordResetExpires = Date.now() + 15 * 60 * 1000;
-  //   return resetToken
-  // },
+  createChangePassword: function () {
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    this.passwordResetToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+    this.passwordResetExpires = Date.now() + 15 * 60 * 1000;
+    return resetToken;
+  },
 };
 //Export the model
 module.exports = mongoose.model("User", userSchema);

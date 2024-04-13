@@ -2,11 +2,10 @@ const {
   generateAccessToken,
   generateRefreshToken,
 } = require("../middlewares/jwt");
-const user = require("../models/user");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
-
+const sendMail = require("../ultils/sendMail")
 const register = asyncHandler(async (req, res) => {
   const { email, password, firstname, lastname } = req.body;
 
@@ -123,26 +122,43 @@ const logout = asyncHandler(async (req, res) => {
 // check token có giống với token mà server gửi mail hay ko
 // change password
 
-// const forgetPassword = asyncHandler(async (req, res) => {
-//   const { email } = req.query;
-//   if (!email) throw new Error("Missing email");
-//   const user = await User.findOne({ email });
-//   if (!user) throw new Error("User not found");
-//   const resetToken = user.createPasswordChangedToken();
-//   await user.save();
+const forgetPassword = asyncHandler(async (req, res) => {
+  const { email } = req.query;
+  if (!email) throw new Error("Missing email");
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("User not found");
+  const resetToken = user.createChangePassword();
+  await user.save();
 
-//   const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn. link này sẽ hết hạn sau 15 phút kể từ bây giờ <a href=${process.env.URL_SERVER}/api/>user/reset-password/${resetToken}>Click here </a>`;
+  const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn. link này sẽ hết hạn sau 15 phút kể từ bây giờ <a href=${process.env.URL_SERVER}/api/>user/reset-password/${resetToken}>Click here </a>`;
 
-//   const data = {
-//       to: email,
-//       html
-//   }
-//   const rs  = await sendMail(data)
-//   return res.status(200).json({
-//     sucess: true,
-//     rs
-//   })
-// });
+  const data = {
+     email,
+      html
+  }
+  const rs  = await sendMail(data)
+  return res.status(200).json({
+    sucess: true,
+    rs
+  })
+});
+
+const resetPassword = asyncHandler(async(req,res)=>{
+  const {password,token} = req.body
+  if(!password || !token) throw new Error("Missing inputs")
+  const passwordResetToken = crypto.createHash('sha256').update(token).digest('hex')
+  const user = await User.findOne({passwordResetToken,passwordResetExpires:{$gt:Date.now()}})
+  if(!user) throw new Error("Invalid reset token")
+  user.password = password
+  user.passwordResetToken = undefined
+  user.passwordChangedAt = Date.now()
+  user.passwordResetExpires = undefined
+  await user.save()
+  return res.status(200).json({
+    sucess: user ? true : false,
+    mes: user ? 'Updated password' : 'Something went wrong'
+  })
+})
 
 const getAllUser = asyncHandler(async (req, res) => {
   const response = await User.find().select("-refreshToken -password -role");
@@ -184,20 +200,34 @@ const updateUserByAdmin = asyncHandler(async (req, res) => {
     new: true,
   }).select("-password -role");
   return res.status(200).json({
-    sucess: response ? true : false ,
+    sucess: response ? true : false,
     updateUser: response ? response : "Some thing went wrong",
-  })
+  });
 });
 
+const updateUserAddress = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  if (!req.body.address) throw new Error("Missing input");
+  const response = await User.findByIdAndUpdate(
+    _id,
+    { $push: { address: req.body.address } },
+    { new: true }
+  ).select("-password -role -refreshToken");
+  return res.status(200).json({
+    sucess: response ? true : false,
+    updateUser: response ? response :' Some thing went wrong'
+  })
+});
 module.exports = {
   register,
   login,
   getCurrent,
   refreshAccessToken,
   logout,
-  // forgetPassword,
+  forgetPassword,
   getAllUser,
   deleteUser,
   updateUser,
-  updateUserByAdmin
+  updateUserByAdmin,
+  updateUserAddress
 };
