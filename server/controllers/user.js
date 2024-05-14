@@ -6,6 +6,7 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const sendMail = require("../ultils/sendMail")
+const crypto = require("crypto")
 const register = asyncHandler(async (req, res) => {
   const { email, password, firstname, lastname } = req.body;
 
@@ -130,7 +131,8 @@ const forgetPassword = asyncHandler(async (req, res) => {
   const resetToken = user.createChangePassword();
   await user.save();
 
-  const html = `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn. link này sẽ hết hạn sau 15 phút kể từ bây giờ <a href=${process.env.URL_SERVER}/api/>user/reset-password/${resetToken}>Click here </a>`;
+  const html =  `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ. <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`
+
 
   const data = {
      email,
@@ -225,6 +227,7 @@ module.exports = {
   refreshAccessToken,
   logout,
   forgetPassword,
+  resetPassword,
   getAllUser,
   deleteUser,
   updateUser,
