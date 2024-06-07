@@ -7,7 +7,12 @@ var CategorySchema = new mongoose.Schema({
       required:true,
       unique:true,
       index: true,
+    },
+    brand:{
+      type:Array,
+      require:true
     }
+
 },{
   timestamps: true
 }

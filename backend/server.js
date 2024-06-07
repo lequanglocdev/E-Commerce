@@ -3,12 +3,12 @@ const express = require("express");
 const dbConnect = require('./config/dbConnect')
 const initRoutes = require('./routes')
 const cookieParrser = require('cookie-parser')
-
+const cors = require("cors");
 const app = express();
 app.use(cookieParrser())
 const port = process.env.PORT || 8888;
 
-// đọc hiểu data mà client gửi lên
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
