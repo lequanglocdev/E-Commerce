@@ -2,3 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+button.slick-next {
+  right: 60px;
+  top:80px;
+}
+button.slick-prev {
+  left: 0px;
+  z-index: 10000;
+  top:80px;
+}
+button.slick-next::before{
+  color: gray;
+  content: "\276F";
+  background-color: #f58686;
+  opacity: 0.4;
+  width: 60px;
+  height: 60px;
+  font-size:  30px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+button.slick-prev::before{
+  color: gray;
+  content: '\276F';
+  background-color: #f58686;
+  opacity: 0.4;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -2,6 +2,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { LOGIN, HOME, PUBLIC } from "./pages/public";
 import path from "./utils/path";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App() {
   return (
     <BrowserRouter>
