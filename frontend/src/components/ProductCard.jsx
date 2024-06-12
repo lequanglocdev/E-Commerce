@@ -12,11 +12,11 @@ const ProductCard = ({ productData }) => {
               : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
           }
           alt="productCard"
-          className="w-[90px] object-contain p-4"
+          className="w-[100px] object-contain p-4"
         />
-        <div className="flex flex-col mt-[15px] items-start gap-1 w-full text-xs">
-          <span className="line-clamp-1 text-sm lowercase ">{productData?.title}</span>
-          <span>{`${fixMoney(productData?.price)} VNĐ`}</span>
+        <div className="flex flex-col mt-[15px] items-start gap-1 w-full ">
+          <span className="line-clamp-1  lowercase text-lg ">{productData?.title}</span>
+          <span className="text-sm">{`${fixMoney(productData?.price)} VNĐ`}</span>
         </div>
       </div>
     </div>

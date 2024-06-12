@@ -6,12 +6,16 @@ import { FaEye } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
-const Product = ({ productData }) => {
+import { Link } from "react-router-dom";
+import path from "../utils/path";
+import label from "../assets/new.png"
+const Product = ({ productData , showOptions = false}) => {
   const [isShowOption, setIsShowOption] = useState(false);
   return (
     <div className="w-full text-base px-[10px]">
-      <div
+      <Link
         className="w-full border p-[14px] flex flex-col items-center"
+        to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
         onMouseEnter={(e) => {
           e.stopPropagation();
           setIsShowOption(true);
@@ -22,7 +26,7 @@ const Product = ({ productData }) => {
         }}
       >
         <div className="w-full relative ">
-          {isShowOption && (
+        {showOptions && isShowOption && ( // Hiển thị tùy chọn chỉ khi cả hai điều kiện đều đúng
             <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-4 animate-slide-top">
               <SelectOption icon={<FaEye />} />
               <SelectOption icon={<IoMdMenu />} />
@@ -38,13 +42,13 @@ const Product = ({ productData }) => {
             alt=""
             className="w-[230px] h-[180px] object-cover "
           />
-          {/* <img src={label} alt="" className="absolute top-[-42px] right-[43px] h-[116px] object-cover:" /> */}
+          <img src={label} alt="" className="absolute top-[0px] right-[40px] h-[20px] object-cover:" />
         </div>
         <div className="flex flex-col mt-[15px] items-start gap-1 w-full">
           <span className="line-clamp-1">{productData?.title}</span>
           <span>{`${fixMoney(productData?.price)} VNĐ`}</span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

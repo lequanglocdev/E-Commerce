@@ -28,7 +28,7 @@ const FeatureProduct = () => {
 
       <div className="flex flex-wrap mt-[20px] mx-[-10px]">
         {products?.map((el) => {
-          return <ProductCard key={el.id} productData={el} />;
+          return <ProductCard key={el._id} productData={el} />;
         })}
       </div>
       <div className="flex justify-between">

@@ -9,7 +9,7 @@ const createCategory = asyncHandler(async (req, res) => {
   });
 });
 const getCategory = asyncHandler(async (req, res) => {
-  const response = await Category.find().select("title _id");
+  const response = await Category.find();
   return res.json({
     success: response ? true : false,
     createCategory: response ? response : "Cannot create new product",

@@ -6,6 +6,10 @@ import {
   BestSeller,
   DealDayly,
   FeatureProduct,
+  CustomSlider,
+  HotCollections,
+  BlogPost,
+
 } from "../../components";
 
 const Home = () => {
@@ -24,6 +28,16 @@ const Home = () => {
       <div className="mt-5 w-full ">
         <FeatureProduct />
       </div>
+      <div className="mt-5 w-full ">
+        <CustomSlider/>
+      </div>
+      <div className="mt-5 w-full ">
+          <HotCollections/>
+      </div>
+      <div className="mt-5 w-full ">
+          <BlogPost/>
+      </div>
+      
     </div>
   );
 };

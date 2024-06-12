@@ -82,6 +82,8 @@ const BestSeller = () => {
               <Product
                 key={el._id}
                 productData={el}
+                showOptions={true}
+                showLabel = {true}
                 isNew={activeTab === 1 ? false : true}
               />
             );

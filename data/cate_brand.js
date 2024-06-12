@@ -16,12 +16,12 @@ const data = [
   },
   {
       cate: 'Speaker',
-      brand: [],
+      brand: ['Asus', 'Dell', 'Acer', 'Lenovo', 'HP', 'Macbook'],
       image: 'https://cdn-amz.woka.io/images/I/51KZcUQIyiS.jpg'
   },
   {
       cate: 'Camera',
-      brand: [],
+      brand: ['Asus', 'Dell', 'Acer', 'Lenovo', 'HP', 'Macbook'],
       image: 'https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_100/https://cdn.tgdd.vn//News/0//camera-giam-sat-3-800x533.jpg'
   },
   {
@@ -39,6 +39,11 @@ const data = [
       brand: ['Samsung', 'Acer', 'Asus', 'Lenovo', 'Haier'],
       image: 'https://cdn.shopify.com/s/files/1/1903/4853/files/printer_300x.jpg?v=1613166810'
   },
+  {
+    cate: 'Loudspeaker',
+    brand: ['Samsung', 'Acer', 'Asus', 'Lenovo', 'Haier'],
+    image: 'https://cello.vn/image/catalog/2023/phat/jbl-partybox-710/jblpartybox710-01.jpg'
+},
 ]
 
 module.exports = data

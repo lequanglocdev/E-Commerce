@@ -8,3 +8,10 @@ export {default as SelectOption} from './SelectOption'
 export {default as DealDayly} from './DealDayly'
 export {default as FeatureProduct} from './FeatureProduct'
 export {default as ProductCard} from './ProductCard'
+export {default as CustomSlider} from './CustomSlider'
+export {default as HotCollections} from './HotCollections'
+export {default as BlogPost} from './BlogPost'
+export {default as TopHeader} from './TopHeader'
+export {default as Footer} from './Footer'
+
+

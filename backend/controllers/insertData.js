@@ -31,7 +31,8 @@ for(let product of data) promises.push(fn(product))
 const fn2 = async(cate) =>{
   await Category.create({
     title:cate?.cate,
-    brand: cate?.brand
+    brand: cate?.brand,
+    image: cate?.image
   })
 }
 
