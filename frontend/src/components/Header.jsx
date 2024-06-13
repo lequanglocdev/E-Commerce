@@ -30,9 +30,11 @@ const Header = () => {
           <IoBag className="text-red-600 text-3xl" />
           <span> 0 Item</span>
         </div>
-        <div className="flex justify-center items-center p-2 cursor-pointer">
-          <FaRegUserCircle className="text-red-600 text-3xl" />
-        </div>
+        <Link to={`/Login`}>
+          <div className="flex justify-center items-center p-2 cursor-pointer">
+            <FaRegUserCircle className="text-red-600 text-3xl" />
+          </div>
+        </Link>
       </div>
     </div>
   );

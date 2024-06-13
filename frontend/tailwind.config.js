@@ -27,9 +27,20 @@ export default {
             transform: "translateY(0px)",
           },
         },
+        "slide-input": {
+          "0%": {
+            "-webkit-transform": "translateY(4px)",
+            transform: "translateY(4px)",
+          },
+          "100%": {
+            "-webkit-transform": "translateY(0px)",
+            transform: "translateY(0px)",
+          },
+        },
       },
       animation:{
-        "slide-top":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both"
+        "slide-top":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both",
+        "slide-input":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both"
       }
     },
   },
