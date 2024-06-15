@@ -10,6 +10,7 @@ import {
   Service,
   FAQs,
   DetailProduct,
+  FainalRegister
 } from "./pages/public";
 import path from "./utils/path";
 import "slick-carousel/slick/slick.css";
@@ -25,6 +26,7 @@ function App() {
           <Route path={path.OUR_SERVICES} element={<Service/>}/>
           <Route path={path.FAQs} element={<FAQs/>}/>
           <Route path={path.DETAIL_PRODUCT_PID_TITLE} element={<DetailProduct/>}/>
+          <Route path={path.DETAIL_PRODUCT_PID_TITLE} element={<FainalRegister/>}/>
         </Route>
         <Route path={path.LOGIN} element={<LOGIN />} />
         <Route path={path.REGISTER} element={<REGISTER />} />

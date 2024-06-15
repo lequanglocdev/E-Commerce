@@ -9,7 +9,8 @@ const path = {
   OUR_SERVICES: "service",
   FAQs:"faq",
   DETAIL_PRODUCT_PID_TITLE:"san-pham/:pid/:title",
-  DETAIL_PRODUCT:'san-pham'
+  DETAIL_PRODUCT:'san-pham',
+  FAINAL_REGISTER:'finalregister/:status'
 }
 
 export default path

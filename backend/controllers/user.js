@@ -7,29 +7,74 @@ const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const sendMail = require("../ultils/sendMail")
 const crypto = require("crypto")
-const register = asyncHandler(async (req, res) => {
-  const { email, password, firstname, lastname } = req.body;
+const maketoken = require("uniqid")
 
-  if (!email || !password || !firstname || !lastname)
+// const register = asyncHandler(async (req, res) => {
+//   const { email, password, firstname, lastname,mobile } = req.body;
+
+//   if (!email || !password || !firstname || !lastname || !mobile)
+//     return res.status(400).json({
+//       sucess: false,
+//       mes: "Missing input",
+
+//     });
+//     const token = maketoken()
+//     res.cookie('dataregister',{...req.body,token},{httpOnly: true,maxAge:15 * 60 * 1000})
+//     const html =  `Xin vui lòng nhấp vào đường link dưới đây để hoàn tất việc đăng ký. Link này có giới hạn là 15 phút kể từ bây giờ
+//       <a href=${process.env.URL_SERVER}/api/user/finalregister/${token}>Click here</a>
+//     `
+//     await sendMail({email,html,subject:"Hoàn tất đăng ký Digital Word"})
+ 
+//     return res.status(200).json({
+//       sucess: true,
+//       mes: "Please check your email to active account"
+//     });
+  
+// });
+const register = asyncHandler(async (req, res) => {
+  const { email, password, firstname, lastname,mobile } = req.body;
+
+  if (!email || !password || !firstname || !lastname || !mobile)
     return res.status(400).json({
       sucess: false,
       mes: "Missing input",
-    });
-  // tìm email đã đăng ký hay chưa
-  const user = await User.findOne({ email: email });
-  if (user) {
-    throw new Error("User has existed"); // lỗi user đã tồn tại
-  } else {
-    const newUser = await User.create(req.body); // tạo newUser
-    return res.status(200).json({
-      sucess: newUser ? true : false,
-      mes: newUser
-        ? "Register is successfully. Please go login"
-        : "Something went wrong",
-    });
-  }
-});
 
+    });
+    const token = maketoken()
+    res.cookie('dataregister',{...req.body,token},{httpOnly: true,maxAge:15 * 60 * 1000})
+    const html =  `Xin vui lòng nhấp vào đường link dưới đây để hoàn tất việc đăng ký. Link này có giới hạn là 15 phút kể từ bây giờ
+      <a href=${process.env.URL_SERVER}/api/user/finalregister/${token}>Click here</a>
+    `
+    await sendMail({email,html,subject:"Hoàn tất đăng ký Digital Word"})
+ 
+    return res.status(200).json({
+      sucess: true,
+      mes: "Please check your email to active account"
+    });
+  
+});
+// const finalRegister =asyncHandler (async(req,res) =>{
+//   const cookie = req.cookies
+//   const {token} = req.params
+//   if(!cookie || cookie?.dataregister?.token !== token) return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+//     const newUser = await User.create({
+//           email:cookie?.dataregister?.email,
+//           password:cookie?.dataregister?.password,
+//           mobile:cookie?.dataregister?.mobile,
+//           firstname:cookie?.dataregister?.firstname,
+//           lastname:cookie?.dataregister?.lastname,
+//     })
+//     if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
+//     else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+// })
+const finalRegister =asyncHandler (async(req,res) =>{
+  const cookie = req.cookies
+  // const {token} = req.params
+  return  res.json({
+    success:true,
+    cookie
+  })
+})
 // refresh token => cấp mới access token
 // access token => xác thục người dùng và cấp quyền cho người dùng
 const login = asyncHandler(async (req, res) => {
@@ -136,7 +181,8 @@ const forgetPassword = asyncHandler(async (req, res) => {
 
   const data = {
      email,
-      html
+      html,
+      subject: "forgot password"
   }
   const rs  = await sendMail(data)
   return res.status(200).json({
@@ -222,6 +268,7 @@ const updateUserAddress = asyncHandler(async (req, res) => {
 });
 module.exports = {
   register,
+  finalRegister,
   login,
   getCurrent,
   refreshAccessToken,

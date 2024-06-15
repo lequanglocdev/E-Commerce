@@ -5,7 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import path from "../../utils/path";
-import { loginError, loginStart, loginSuccess } from "../../redux/user/userSlice";
+import {
+  loginError,
+  loginStart,
+  loginSuccess,
+} from "../../redux/user/userSlice";
 const Login = () => {
   const [payload, setPayload] = useState({
     email: "",
@@ -29,10 +33,12 @@ const Login = () => {
 
       const data = await res.json();
       if (data.sucess) {
-        dispatch(loginSuccess(  Swal.fire("Congratulation", data.mes, "success")))
+        dispatch(
+          loginSuccess(Swal.fire("Congratulation", data.mes, "success"))
+        );
         navigate(`/${path.HOME}`);
       } else {
-        dispatch(loginError( Swal.fire("Error!", data.mes, "error")));
+        dispatch(loginError(Swal.fire("Error!", data.mes, "error")));
       }
       // console.log(data);
     } catch (error) {
