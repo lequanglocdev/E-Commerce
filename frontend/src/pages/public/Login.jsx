@@ -15,6 +15,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [email, setEmail] = useState("");
+  const [forgotPassword, setForgotPassword] = useState(false);
+  // const [forgotPassword,isForgotPassword] = useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error: errorMessage } = useSelector((state) => state.user);
@@ -45,8 +48,53 @@ const Login = () => {
       dispatch(loginError(errorMessage));
     }
   }, [payload]);
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      Swal.fire("Error!", "Email cannot be empty", "error");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/user/forgetPassword`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }), // Gửi dữ liệu dưới dạng đối tượng có thuộc tính email
+      });
+
+      const data = await res.json();
+      if (data?.sucess) {
+        Swal.fire("Please check your email", data.rs, "success");
+      } else {
+        Swal.fire("You failed to send email", data.rs, "error");
+      }
+    } catch (error) {
+      console.error("Error occurred:", error);
+      Swal.fire("Error!", "Something went wrong", "error");
+    }
+  };
+
   return (
     <div className="w-screen h-screen relative">
+      {forgotPassword && (
+        <div className="absolute top-0 animate-slide-right left-0 bottom-0 right-0 bg-main-500 bg-white y flex justify-center py-8 z-50">
+          <div className="flex flex-col">
+            <label htmlFor="email">Enter your email</label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-[800px] pb-4 border-b outline-none placeholder:text-sm "
+              placeholder="Ex: email@gmail.com"
+            />
+          </div>
+          <div className="flex gap-4">
+            <Button name="Back" handleOnclick={()=>setForgotPassword(false)} />
+            <Button name="Submit" handleOnclick={handleForgotPassword} />
+          </div>
+        </div>
+      )}
       <img
         src="https://img.pikbest.com/wp/202405/credit-card-online-digital-commerce-3d-render-illustration-of-phone-and-bags-for-shopping-icons_9835204.jpg!bw700"
         alt="ibg"
@@ -72,7 +120,7 @@ const Login = () => {
           <Button name={"Login"} handleOnclick={handleSubmit} />
 
           <div className="flex items-center justify-between w-full text-sm my-2">
-            <span className="text-main hover:underline cursor-pointer p-2">
+            <span onClick={()=> setForgotPassword(true)} className="text-main hover:underline cursor-pointer p-2">
               Forgot your password
             </span>
             <Link to={`/register`}>

@@ -7,7 +7,7 @@ router.post("/login", userController.login);
 router.get("/current", verifyAccessToken, userController.getCurrent);
 router.post("/refreshtoken", userController.refreshAccessToken);
 router.get("/logout", userController.logout);
-router.get("/forgetPassword", userController.forgetPassword);
+router.post("/forgetPassword", userController.forgetPassword);
 router.put("/resetPassword", userController.resetPassword);
 
 router.get("/all", [verifyAccessToken, isAdmin], userController.getAllUser);

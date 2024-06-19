@@ -12,6 +12,7 @@ export default {
       },
       backgroundColor: {
         main: "#ee3131",
+        overlay:'rgba(0,0,0,0.7)'
       },
       colors: {
         main: "#ee3131",
@@ -37,10 +38,32 @@ export default {
             transform: "translateY(0px)",
           },
         },
+        "slide-right":{
+          "0%": {
+            "-webkit-transform": "translateX(-1000px);",
+                    transform: "translateX(-1000px);"
+          },
+          "100%": {
+            "-webkit-transform": "translateX(0px);",
+                    transform: "translateX(0px);"
+          }
+        }, 
+        "slide-left":{
+          "0%": {
+            "-webkit-transform": "translateX(0px);",
+                    transform: "translateX(0px);"
+          },
+          "100%": {
+            "-webkit-transform": "translateX(-1000px);",
+                    transform: "translateX(-1000px);"
+          }
+        }
       },
       animation:{
         "slide-top":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both",
-        "slide-input":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both"
+        "slide-input":"slide-top 0.5s cubic-bezier(0.250,0.46,0.45,0.940)both",
+        "slide-right":"slide-right 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both",
+        "slide-left": "slide-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both"
       }
     },
   },

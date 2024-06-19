@@ -53,28 +53,25 @@ const register = asyncHandler(async (req, res) => {
     });
   
 });
-// const finalRegister =asyncHandler (async(req,res) =>{
-//   const cookie = req.cookies
-//   const {token} = req.params
-//   if(!cookie || cookie?.dataregister?.token !== token) return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
-//     const newUser = await User.create({
-//           email:cookie?.dataregister?.email,
-//           password:cookie?.dataregister?.password,
-//           mobile:cookie?.dataregister?.mobile,
-//           firstname:cookie?.dataregister?.firstname,
-//           lastname:cookie?.dataregister?.lastname,
-//     })
-//     if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
-//     else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
-// })
 const finalRegister =asyncHandler (async(req,res) =>{
   const cookie = req.cookies
-  // const {token} = req.params
-  return  res.json({
-    success:true,
-    cookie
-  })
+  const {token} = req.params
+  if(!cookie || cookie?.dataregister?.token !== token) {
+    res.clearCookie('dataregister')
+    return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
+  }
+    const newUser = await User.create({
+          email:cookie?.dataregister?.email,
+          password:cookie?.dataregister?.password,
+          mobile:cookie?.dataregister?.mobile,
+          firstname:cookie?.dataregister?.firstname,
+          lastname:cookie?.dataregister?.lastname,
+    })
+    res.clearCookie('dataregister ')
+    if(newUser) return res.redirect(`${process.env.CLIENT_URL}/finalregister/success`)
+    else return res.redirect(`${process.env.CLIENT_URL}/finalregister/failed`)
 })
+//  
 // refresh token => cấp mới access token
 // access token => xác thục người dùng và cấp quyền cho người dùng
 const login = asyncHandler(async (req, res) => {
@@ -169,14 +166,14 @@ const logout = asyncHandler(async (req, res) => {
 // change password
 
 const forgetPassword = asyncHandler(async (req, res) => {
-  const { email } = req.query;
+  const { email } = req.body;
   if (!email) throw new Error("Missing email");
   const user = await User.findOne({ email });
   if (!user) throw new Error("User not found");
   const resetToken = user.createChangePassword();
   await user.save();
 
-  const html =  `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ. <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here</a>`
+  const html =  `Xin vui lòng click vào link dưới đây để thay đổi mật khẩu của bạn.Link này sẽ hết hạn sau 15 phút kể từ bây giờ. <a href=${process.env.CLIENT_URL}/reset-password/${resetToken}>Click here</a>`
 
 
   const data = {

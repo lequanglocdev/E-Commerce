@@ -8,5 +8,6 @@ export {default as Service} from "./Service"
 export {default as FAQs} from "./Faqs"
 export {default as DetailProduct} from "./DetailProduct"
 export {default as FainalRegister} from "./FainalRegister"
+export {default as ResetPassword} from "./ResetPassword"
 
 
