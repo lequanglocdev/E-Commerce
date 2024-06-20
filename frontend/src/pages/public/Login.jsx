@@ -10,6 +10,7 @@ import {
   loginStart,
   loginSuccess,
 } from "../../redux/user/userSlice";
+import {validate} from "../../utils/helper"
 const Login = () => {
   const [payload, setPayload] = useState({
     email: "",
@@ -17,36 +18,40 @@ const Login = () => {
   });
   const [email, setEmail] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
+  const [invalidFields,setInvalidFields] = useState([])
   // const [forgotPassword,isForgotPassword] = useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error: errorMessage } = useSelector((state) => state.user);
 
   const handleSubmit = useCallback(async () => {
-    if (!payload.email || !payload.password) {
-      return dispatch(loginError("Không được để trống"));
-    }
-    try {
-      dispatch(loginStart());
-      const res = await fetch("/api/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (data.sucess) {
-        dispatch(
-          loginSuccess(Swal.fire("Congratulation", data.mes, "success"))
-        );
-        navigate(`/${path.HOME}`);
-      } else {
-        dispatch(loginError(Swal.fire("Error!", data.mes, "error")));
+    const invalids = validate(payload,setInvalidFields);
+    console.log(invalids)
+    if(invalids === 0){
+      try {
+        dispatch(loginStart());
+        const res = await fetch("/api/user/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload,setInvalidFields),
+        });
+  
+        const data = await res.json();
+        if (data.sucess) {
+          dispatch(
+            loginSuccess(Swal.fire("Congratulation", data.mes, "success"))
+          );
+          navigate(`/${path.HOME}`);
+        } else {
+          dispatch(loginError(Swal.fire("Error!", data.mes, "error")));
+        }
+        // console.log(data);
+      } catch (error) {
+        dispatch(loginError(errorMessage));
       }
-      // console.log(data);
-    } catch (error) {
-      dispatch(loginError(errorMessage));
     }
+ 
+    
   }, [payload]);
 
   const handleForgotPassword = async () => {
@@ -87,6 +92,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-[800px] pb-4 border-b outline-none placeholder:text-sm "
               placeholder="Ex: email@gmail.com"
+              
             />
           </div>
           <div className="flex gap-4">
@@ -110,12 +116,16 @@ const Login = () => {
             value={payload.email}
             setValue={setPayload}
             nameKey="email"
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
           />
           <InputField
             value={payload.password}
             setValue={setPayload}
             nameKey="password"
             type="password"
+            invalidFields={invalidFields}
+              setInvalidFields={setInvalidFields}
           />
           <Button name={"Login"} handleOnclick={handleSubmit} />
 

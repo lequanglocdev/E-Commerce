@@ -15,13 +15,20 @@ const InputField = ({
       {value.trim() !== "" && <label className="absolute top-0 text-[10px] left-[8px] font-bold" htmlFor={nameKey}>{nameKey?.slice(0,1).toUpperCase() + nameKey?.slice(1)}</label>}
       <input 
       type= { type ||"text"}
-      placeholder={nameKey.slice(0,1).toUpperCase() +nameKey.slice(1)}
+      placeholder={nameKey?.slice(0,1).toUpperCase() + nameKey?.slice(1)}
       value={value}
-      onChange={e => setValue(prev =>({...prev,[nameKey]:e.target.value.trim()}))}
+      onChange={e => setValue(prev =>({...prev,[nameKey]:e.target.value}))}
       className="px-4 py-2 rounded-sm border w-full my-2 placeholder:text-sm placeholder:italic outline-none"
+      onFocus={() =>setInvalidFields([])}
       />
+      {invalidFields?.some(el =>el.name === nameKey)&&( <small className="text-main italic">{invalidFields.find(el =>el.name === nameKey)?.mes}</small>)}
     </div>
   );
 };
 
+
+
+
 export default InputField;
+
+// [{name:password,mes:require}]
