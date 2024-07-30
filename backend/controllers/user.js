@@ -9,28 +9,6 @@ const sendMail = require("../ultils/sendMail")
 const crypto = require("crypto")
 const maketoken = require("uniqid")
 
-// const register = asyncHandler(async (req, res) => {
-//   const { email, password, firstname, lastname,mobile } = req.body;
-
-//   if (!email || !password || !firstname || !lastname || !mobile)
-//     return res.status(400).json({
-//       sucess: false,
-//       mes: "Missing input",
-
-//     });
-//     const token = maketoken()
-//     res.cookie('dataregister',{...req.body,token},{httpOnly: true,maxAge:15 * 60 * 1000})
-//     const html =  `Xin vui lòng nhấp vào đường link dưới đây để hoàn tất việc đăng ký. Link này có giới hạn là 15 phút kể từ bây giờ
-//       <a href=${process.env.URL_SERVER}/api/user/finalregister/${token}>Click here</a>
-//     `
-//     await sendMail({email,html,subject:"Hoàn tất đăng ký Digital Word"})
- 
-//     return res.status(200).json({
-//       sucess: true,
-//       mes: "Please check your email to active account"
-//     });
-  
-// });
 const register = asyncHandler(async (req, res) => {
   const { email, password, firstname, lastname,mobile } = req.body;
 

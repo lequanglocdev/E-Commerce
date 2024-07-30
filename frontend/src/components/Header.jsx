@@ -5,7 +5,11 @@ import { IoBag } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { useSelector } from "react-redux";
+
 const Header = () => {
+  const { createUser } = useSelector((state) => state.user);
+
   return (
     <div className="w-main h-[110px] py-[36px] flex justify-between items-center h-[110px] py-[35px]">
       <Link>
@@ -27,14 +31,22 @@ const Header = () => {
           <span>Online Support 24/7</span>
         </div>
         <div className="flex justify-center items-center gap-3 p-2  cursor-pointer">
-          <IoBag className="text-red-600 text-3xl" />
+          <IoBag className="text-red-600 text-2xl" />
           <span> 0 Item</span>
         </div>
-        <Link to={`/Login`}>
-          <div className="flex justify-center items-center p-2 cursor-pointer">
-            <FaRegUserCircle className="text-red-600 text-3xl" />
+        {createUser ? (
+          <div className="flex justify-center items-center p-2 cursor-pointer gap-2">
+            <FaRegUserCircle className="text-red-600 text-2xl" />
+            <span>Profile</span>
           </div>
-        </Link>
+        ) : (
+          <Link to={`/Login`}>
+            <div className="flex justify-center items-center p-2 cursor-pointer gap-2">
+              <FaRegUserCircle className="text-red-600 text-2xl" />
+              <span className="font-bold">Profile</span>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );

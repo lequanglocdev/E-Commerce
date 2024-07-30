@@ -30,3 +30,34 @@ export const navigation = [
   
 
 ]
+
+export const productInfomation = [
+  {
+    id:1,
+    name:"Description",
+    content:"ldhalkdankdakldandla"
+  },
+  {
+    id:2,
+    name:"Warranty",
+    content:"ldhalkdankdakldandla212211"
+
+  },
+  {
+    id:3,
+    name:"Warranty",
+    content:"ldhalkdankdakldandla424242424"
+    
+  },
+  {
+    id:4,
+    name:"Warranty",
+    content:"jadjadajadajdq9330180183018"
+  },
+  {
+    id:5,
+    name:"Warranty",
+    content:"ldhalkdankdakldandla42424444444444"
+
+  },
+]

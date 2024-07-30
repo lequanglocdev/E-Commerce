@@ -6,7 +6,7 @@ router.get("/finalregister/:token",userController.finalRegister)
 router.post("/login", userController.login);
 router.get("/current", verifyAccessToken, userController.getCurrent);
 router.post("/refreshtoken", userController.refreshAccessToken);
-router.get("/logout", userController.logout);
+router.post("/logout", userController.logout);
 router.post("/forgetPassword", userController.forgetPassword);
 router.put("/resetPassword", userController.resetPassword);
 

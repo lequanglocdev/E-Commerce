@@ -19,7 +19,7 @@ const createOrder = asyncHandler(async(req,res) =>{
       createData.coupon = coupon
       
     }
-    console.log(total)
+    // console.log(total)
       const rs = await Order.create({createData})
     return res.json({
       success: rs ? true : false,

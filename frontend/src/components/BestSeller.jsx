@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Product } from "./";
+import { apiProduct } from "../api/product";
 
 const tabs = [
   { id: 1, name: "Best seller" },
@@ -23,15 +24,16 @@ const BestSeller = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("/api/product");
-      const data = await response.json();
+      const response = await apiProduct();
+      // console.log(response)
+      // const data = await response.json();
 
       // console.log("API Response:", data);
 
-      if (data?.success) {
-        const halfLength = Math.ceil(data.productData.length / 2); 
-        const halfBestSellers = data.productData.slice(0, halfLength); 
-        const halfNewProducts = data.productData.slice(halfLength); 
+      if (response?.success) {
+        const halfLength = Math.ceil(response.productData.length / 2); 
+        const halfBestSellers = response.productData.slice(0, halfLength); 
+        const halfNewProducts = response.productData.slice(halfLength); 
         setBestSellers(halfBestSellers);
         setProducts(halfBestSellers); 
         // console.log("Best Sellers Set:", halfBestSellers);
@@ -51,11 +53,11 @@ const BestSeller = () => {
   useEffect(() => {
     if (activeTab === 1) {
       setProducts(bestSellers);
-      console.log("Active Tab 1 - Best Sellers:", bestSellers);
+      // console.log("Active Tab 1 - Best Sellers:", bestSellers);
     }
     if (activeTab === 2) {
       setProducts(newProducts);
-      console.log("Active Tab 2 - New Products:", newProducts);
+      // console.log("Active Tab 2 - New Products:", newProducts);
     }
   }, [activeTab, bestSellers, newProducts]);
 
@@ -77,7 +79,7 @@ const BestSeller = () => {
       <div className="mt-4 ">
         <Slider {...settings}>
           {products?.map((el) => {
-            console.log("Product Data:", el); // Log the product data here
+          //  console.log("Product Data:", el); // Log the product data here
             return (
               <Product
                 key={el._id}

@@ -7,10 +7,10 @@ import Swal from "sweetalert2";
 import path from "../../utils/path";
 import {
   loginError,
-  loginStart,
   loginSuccess,
 } from "../../redux/user/userSlice";
 import {validate} from "../../utils/helper"
+import {apiLogin} from "../../api/user"
 const Login = () => {
   const [payload, setPayload] = useState({
     email: "",
@@ -26,32 +26,21 @@ const Login = () => {
 
   const handleSubmit = useCallback(async () => {
     const invalids = validate(payload,setInvalidFields);
-    console.log(invalids)
     if(invalids === 0){
       try {
-        dispatch(loginStart());
-        const res = await fetch("/api/user/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload,setInvalidFields),
-        });
-  
-        const data = await res.json();
-        if (data.sucess) {
-          dispatch(
-            loginSuccess(Swal.fire("Congratulation", data.mes, "success"))
-          );
+        const rs = await apiLogin(payload)
+        if(rs.sucess){
+          Swal.fire("Congratulation", payload.message, "success")
+          dispatch(loginSuccess({isLoggedIn:true,token:rs.accessToken,userData:rs.userData}))
           navigate(`/${path.HOME}`);
-        } else {
-          dispatch(loginError(Swal.fire("Error!", data.mes, "error")));
+        }else{
+          Swal.fire("Error!", payload.message, "error");
         }
-        // console.log(data);
+      
       } catch (error) {
         dispatch(loginError(errorMessage));
       }
     }
- 
-    
   }, [payload]);
 
   const handleForgotPassword = async () => {

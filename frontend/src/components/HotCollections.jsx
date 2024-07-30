@@ -8,7 +8,7 @@ const HotCollections = () => {
       const res = await fetch("/api/category");
       const data = await res.json();
       setCategories(data.createCategory);
-      console.log("Cate", data.createCategory);
+      // console.log("Cate", data.createCategory);
     };
     fetchCategory();
   }, []);

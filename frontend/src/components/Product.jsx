@@ -7,7 +7,6 @@ import { IoMdMenu } from "react-icons/io";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import path from "../utils/path";
 import label from "../assets/new.png"
 const Product = ({ productData , showOptions = false}) => {
   const [isShowOption, setIsShowOption] = useState(false);
@@ -15,7 +14,7 @@ const Product = ({ productData , showOptions = false}) => {
     <div className="w-full text-base px-[10px]">
       <Link
         className="w-full border p-[14px] flex flex-col items-center"
-        to={`/${path.DETAIL_PRODUCT}/${productData?._id}/${productData?.title}`}
+        to={`/${productData?.category}/${productData?._id}/${productData?.title}`}
         onMouseEnter={(e) => {
           e.stopPropagation();
           setIsShowOption(true);

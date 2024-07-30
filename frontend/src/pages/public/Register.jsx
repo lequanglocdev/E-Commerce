@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
 import { InputField, Button } from "../../components";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import path from "../../utils/path";
+import { validate } from "../../utils/helper";
 const Register = () => {
   const navigate = useNavigate();
   const [payload, setPayload] = useState({
@@ -10,25 +11,31 @@ const Register = () => {
     password: "",
     firstname: "",
     lastname: "",
-    mobile:""
+    mobile: "",
   });
-  const handleSubmit = useCallback(async () => {
-    // console.log(payload)
 
-    const res = await fetch("/api/user/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    
-    const data = await res.json();
-    if(data.sucess){
-        Swal.fire("Congratulation",data.mes,"success")
-        navigate(`/${path.LOGIN}`)
-    }else{
-      Swal.fire("Error!",data.mes,"error")
+  const [invalidFields, setInvalidFields] = useState([]);
+  const handleSubmit = useCallback(async () => {
+    const invalids = validate(payload, setInvalidFields);
+    if (invalids === 0) {
+      try {
+        const res = await fetch("/api/user/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload,),
+        });
+
+        const data = await res.json();
+        if (data.sucess) {
+          Swal.fire("Congratulation", data.mes, "success");
+          navigate(`/${path.LOGIN}`);
+        } else {
+          Swal.fire("Error!", data.mes, "error");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-    console.log(data);
   }, [payload]);
   return (
     <div className="w-screen h-screen relative">
@@ -47,28 +54,38 @@ const Register = () => {
               value={payload.firstname}
               setValue={setPayload}
               nameKey="firstname"
+              invalidFields={invalidFields}
+              setInvalidFields={setInvalidFields}
             />
-             <InputField
+            <InputField
               value={payload.lastname}
               setValue={setPayload}
               nameKey="lastname"
+              invalidFields={invalidFields}
+              setInvalidFields={setInvalidFields}
             />
           </div>
           <InputField
             value={payload.email}
             setValue={setPayload}
             nameKey="email"
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
           />
-           <InputField
+          <InputField
             value={payload.mobile}
             setValue={setPayload}
             nameKey="mobile"
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
           />
           <InputField
             value={payload.password}
             setValue={setPayload}
             nameKey="password"
             type="password"
+            invalidFields={invalidFields}
+            setInvalidFields={setInvalidFields}
           />
           <Button name={"Register"} handleOnclick={handleSubmit} />
           <div className="flex items-center justify-center mt-4 w-full text-sm my-2">

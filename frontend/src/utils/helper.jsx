@@ -43,13 +43,13 @@ export const validate = (payload,setInvalidFields) =>{
   }
   for(let arr of formatPayload){
     switch(arr[0]){
-      case 'email':
-        const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-        if(arr[1].match(regexEmail)){
-          invalids ++
-          setInvalidFields(prev =>[...prev, {name: arr[0],mes:"Email invalid"}])
-        }
-        break;
+      // case "email":
+      //   const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+      //   if(arr[1].match(regexEmail)){
+      //     invalids ++
+      //     setInvalidFields(prev =>[...prev, {name: arr[0],mes:"Email invalid"}])
+      //   }
+      //   break;
       case "password":
       if(arr[1].length < 6){
         invalids++

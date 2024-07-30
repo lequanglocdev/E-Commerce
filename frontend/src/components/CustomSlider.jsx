@@ -34,7 +34,7 @@ const CustomSlider = () => {
       <div>
         <Slider {...settings}>
           {products?.map((el) => {
-            console.log("Product Data:", el); // Log the product data here
+           // console.log("Product Data:", el); // Log the product data here
             return <Product key={el._id} productData={el} showOptions={false} />;
           })}
         </Slider>

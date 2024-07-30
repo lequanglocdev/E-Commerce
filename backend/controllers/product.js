@@ -34,7 +34,7 @@ const getProducts = asyncHandler(async (req, res) => {
   let queryString = JSON.stringify(queries);
   queryString.replace(/\b(gte|gt|lt|lte)\b/g, (match) => `$${match}`);
   const formatedQueries = JSON.parse(queryString);
-  console.log(formatedQueries);
+  // console.log(formatedQueries);
 
   // Fillter
   if (queries?.title)
@@ -137,7 +137,7 @@ const ratings = asyncHandler(async (req, res) => {
       },
       { new: true }
     );
-    console.log(response);
+    // console.log(response);
   }
 
   // sum rating

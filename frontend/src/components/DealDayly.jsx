@@ -1,6 +1,11 @@
 import { FaStar } from "react-icons/fa";
 import { IoMenu } from "react-icons/io5";
+import Countdown from "./Countdown";
+import { useState } from "react";
 const DealDayly = () => {
+  const[hour,setHour] = useState(0)
+  const[minute,setMinute] = useState(0)
+  const[second,setSecond] = useState(0)
   return (
     <div>
       <div className="flex justify-center gap-10 items-center">
@@ -22,9 +27,9 @@ const DealDayly = () => {
       </div>
       <div className="px-4 mt-8">
           <div className="flex justify-center gap-2 items-center mb-4">
-            <span>couter</span>
-            <span>couter</span>
-            <span>couter</span>
+            <Countdown unit={"Hours"} number={hour}/>
+            <Countdown unit={"Minute"} number={minute}/>
+            <Countdown unit={"Second"} second={second}/>
           </div>
           <button
             type="button"

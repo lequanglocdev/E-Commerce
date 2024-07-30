@@ -1,11 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createSlice,} from "@reduxjs/toolkit"
 
 
 const initialState = {
-  createUser:null,
-  error: null,
-  loading: false,
-  token:null
+  current:null,
+  isLoggedIn:false,
+  token:null,
 }
 
 const userSlice = createSlice({
@@ -17,10 +16,11 @@ const userSlice = createSlice({
           state.error = null
         },
         loginSuccess:(state,action) =>{
-          state.createUser = action.payload
-          state.token = action.payload
-          state.loading= false
-          state.error = null
+          console.log("action",action)
+          state.isLoggedIn = action.payload.isLoggedIn
+          state.token = action.payload.token
+          state.current = action.payload.userData
+       
         },
         loginError:(state,action) =>{
           state.loading = false
@@ -28,9 +28,9 @@ const userSlice = createSlice({
         },
        
         logoutSuccess: (state) => {
-          state.createUser = null;
-          state.error = null;
-          state.loading = false;
+          console.log(state)
+          state.isLoggedIn = false;
+          state.token = null
         },
     }
 })
