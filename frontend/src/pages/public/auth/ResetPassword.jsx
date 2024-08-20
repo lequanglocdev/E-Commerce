@@ -1,27 +1,27 @@
 // import React from 'react'
 
 import { useState } from "react";
-import { Button } from "../../components";
+import { Button } from "../../../components/templates";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
   const { token } = useParams();
   const handleResetPassword = async () => {
     try {
       const res = await fetch("/api/user/resetPassword", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password,token }), // Gửi dữ liệu dưới dạng đối tượng có thuộc tính email
+        body: JSON.stringify({ password, token }), // Gửi dữ liệu dưới dạng đối tượng có thuộc tính email
       });
-      const data = await res.json()
+      const data = await res.json();
       if (data?.sucess) {
         Swal.fire("Please check your email", data.rs, "success");
       } else {
         Swal.fire("You failed to send email", data.rs, "error");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   return (

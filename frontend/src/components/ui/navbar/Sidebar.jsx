@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { createSlug } from "../utils/helper";
-import {apiCategory} from "../api/category"
+import { createSlug } from "../../../utils/helper";
+import { apiCategory } from "../../../api/category";
 const Sidebar = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchCategory = async () => {
-      const res = await apiCategory() 
+      const res = await apiCategory();
       // console.log("category",res)
-      if(res.success) setCategories(res.createCategory)
+      if (res.success) setCategories(res.createCategory);
     };
     fetchCategory();
   }, [categories]);
 
   return (
     <div className="flex flex-col">
-     
       {categories?.map((el) => (
         <NavLink
           key={createSlug(el.title)}

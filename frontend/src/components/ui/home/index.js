@@ -1,0 +1,6 @@
+export {default as BestSeller} from './BestSeller'
+export {default as DealDayly} from './DealDayly'
+export {default as CustomSlider} from './CustomSlider'
+export {default as BlogPost} from './BlogPost'
+export {default as FeatureProduct} from './FeatureProduct'
+export {default as HotCollections} from './HotCollections'

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProductCard from "./ProductCard";
+import { ProductCard } from "../product";
 
 const FeatureProduct = () => {
   const [products, setProducts] = useState([]);
@@ -50,7 +50,7 @@ const FeatureProduct = () => {
         <img
           src="https://digital-world-2.myshopify.com/cdn/shop/files/banner4-bottom-home2_92e12df0-500c-4897-882a-7d061bb417fd_400x.jpg?v=1613166661"
           alt=""
-           className="w-[24%] object-contain"
+          className="w-[24%] object-contain"
         />
       </div>
     </div>

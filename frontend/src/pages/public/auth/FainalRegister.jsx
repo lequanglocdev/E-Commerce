@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import path from '../../utils/path';
+import path from '../../../utils/path';
 import { useEffect } from "react";
 import Swal from 'sweetalert2';
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { Product } from "./";
-import { apiProduct } from "../api/product";
+import { Product } from "../product";
+import { apiProduct } from "../../../api/product";
 
 const tabs = [
   { id: 1, name: "Best seller" },
@@ -25,20 +25,15 @@ const BestSeller = () => {
   const fetchProducts = async () => {
     try {
       const response = await apiProduct();
-      // console.log(response)
-      // const data = await response.json();
-
-      // console.log("API Response:", data);
-
       if (response?.success) {
-        const halfLength = Math.ceil(response.productData.length / 2); 
-        const halfBestSellers = response.productData.slice(0, halfLength); 
-        const halfNewProducts = response.productData.slice(halfLength); 
+        const halfLength = Math.ceil(response.productData.length / 2);
+        const halfBestSellers = response.productData.slice(0, halfLength);
+        const halfNewProducts = response.productData.slice(halfLength);
         setBestSellers(halfBestSellers);
-        setProducts(halfBestSellers); 
+        setProducts(halfBestSellers);
         // console.log("Best Sellers Set:", halfBestSellers);
 
-        setNewProducts(halfNewProducts)
+        setNewProducts(halfNewProducts);
         // console.log("New Products Set:", halfNewProducts);
       }
     } catch (error) {
@@ -79,13 +74,13 @@ const BestSeller = () => {
       <div className="mt-4 ">
         <Slider {...settings}>
           {products?.map((el) => {
-          //  console.log("Product Data:", el); // Log the product data here
+            //  console.log("Product Data:", el); // Log the product data here
             return (
               <Product
                 key={el._id}
                 productData={el}
                 showOptions={true}
-                showLabel = {true}
+                showLabel={true}
                 isNew={activeTab === 1 ? false : true}
               />
             );

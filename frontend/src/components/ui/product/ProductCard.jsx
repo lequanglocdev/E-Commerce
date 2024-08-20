@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { fixMoney } from "../utils/helper";
+import { fixMoney } from "../../../utils/helper";
 const ProductCard = ({ productData }) => {
   return (
     <div className="w-1/3 flex-auto px-[-10px]">

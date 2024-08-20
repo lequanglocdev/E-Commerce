@@ -1,8 +1,11 @@
 /* eslint-disable react/jsx-key */
 import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Breadcrumb, Button, ProductInfomation, SelectQuantity } from "../../components";
-import { fixMoney } from "../../utils/helper";
+import {Breadcrumb} from "../../../components/templates/index"
+import {ProductInfomation} from "../../../components/ui/product"
+import {SelectQuantity} from "../../../components/ui/select"
+import { Button } from "../../../components/templates";
+import { fixMoney } from "../../../utils/helper";
 import Slider from "react-slick";
 import { IoShieldOutline } from "react-icons/io5";
 import { FiTruck } from "react-icons/fi";
@@ -183,7 +186,7 @@ const DetailProduct = () => {
         <ProductInfomation/>
       </div>
       <div className="w-main m-auto mt-8">
-            <h3 className="text-[">OTHER CUSTOMER</h3>
+            <h3 className="text-[20px]">OTHER CUSTOMER Also Life</h3>
       </div>
     </div>
   );

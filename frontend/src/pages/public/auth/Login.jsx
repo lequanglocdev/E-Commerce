@@ -1,16 +1,14 @@
 // import React from 'react'
 import { useCallback, useState } from "react";
-import { InputField, Button } from "../../components";
+import { InputField } from "../../../components/templates";
+import { Button } from "../../../components/templates";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import path from "../../utils/path";
-import {
-  loginError,
-  loginSuccess,
-} from "../../redux/user/userSlice";
-import {validate} from "../../utils/helper"
-import {apiLogin} from "../../api/user"
+import path from "../../../utils/path";
+import { loginError, loginSuccess } from "../../../redux/user/userSlice";
+import { validate } from "../../../utils/helper";
+import { apiLogin } from "../../../api/user";
 const Login = () => {
   const [payload, setPayload] = useState({
     email: "",
@@ -18,25 +16,30 @@ const Login = () => {
   });
   const [email, setEmail] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
-  const [invalidFields,setInvalidFields] = useState([])
+  const [invalidFields, setInvalidFields] = useState([]);
   // const [forgotPassword,isForgotPassword] = useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error: errorMessage } = useSelector((state) => state.user);
 
   const handleSubmit = useCallback(async () => {
-    const invalids = validate(payload,setInvalidFields);
-    if(invalids === 0){
+    const invalids = validate(payload, setInvalidFields);
+    if (invalids === 0) {
       try {
-        const rs = await apiLogin(payload)
-        if(rs.sucess){
-          Swal.fire("Congratulation", payload.message, "success")
-          dispatch(loginSuccess({isLoggedIn:true,token:rs.accessToken,userData:rs.userData}))
+        const rs = await apiLogin(payload);
+        if (rs.sucess) {
+          Swal.fire("Congratulation", payload.message, "success");
+          dispatch(
+            loginSuccess({
+              isLoggedIn: true,
+              token: rs.accessToken,
+              userData: rs.userData,
+            })
+          );
           navigate(`/${path.HOME}`);
-        }else{
+        } else {
           Swal.fire("Error!", payload.message, "error");
         }
-      
       } catch (error) {
         dispatch(loginError(errorMessage));
       }
@@ -81,11 +84,13 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="w-[800px] pb-4 border-b outline-none placeholder:text-sm "
               placeholder="Ex: email@gmail.com"
-              
             />
           </div>
           <div className="flex gap-4">
-            <Button name="Back" handleOnclick={()=>setForgotPassword(false)} />
+            <Button
+              name="Back"
+              handleOnclick={() => setForgotPassword(false)}
+            />
             <Button name="Submit" handleOnclick={handleForgotPassword} />
           </div>
         </div>
@@ -114,12 +119,15 @@ const Login = () => {
             nameKey="password"
             type="password"
             invalidFields={invalidFields}
-              setInvalidFields={setInvalidFields}
+            setInvalidFields={setInvalidFields}
           />
           <Button name={"Login"} handleOnclick={handleSubmit} />
 
           <div className="flex items-center justify-between w-full text-sm my-2">
-            <span onClick={()=> setForgotPassword(true)} className="text-main hover:underline cursor-pointer p-2">
+            <span
+              onClick={() => setForgotPassword(true)}
+              className="text-main hover:underline cursor-pointer p-2"
+            >
               Forgot your password
             </span>
             <Link to={`/register`}>

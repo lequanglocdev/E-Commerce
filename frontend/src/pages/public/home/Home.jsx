@@ -1,17 +1,6 @@
-// import React from "react";
-
-import {
-  Banner,
-  Sidebar,
-  BestSeller,
-  DealDayly,
-  FeatureProduct,
-  CustomSlider,
-  HotCollections,
-  BlogPost,
-
-} from "../../components";
-
+import { Banner } from "../../../components/templates";
+import {FeatureProduct,DealDayly,HotCollections,BestSeller,BlogPost,CustomSlider} from "../../../components/ui/home"
+import {Sidebar} from "../../../components/ui/navbar"
 const Home = () => {
   return (
     <div className="w-main">

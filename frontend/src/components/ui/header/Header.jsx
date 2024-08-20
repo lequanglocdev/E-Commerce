@@ -4,7 +4,7 @@ import { IoMdMail } from "react-icons/io";
 import { IoBag } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
-import logo from "../assets/logo.png";
+import logo from "../../../assets/logo.png";
 import { useSelector } from "react-redux";
 
 const Header = () => {

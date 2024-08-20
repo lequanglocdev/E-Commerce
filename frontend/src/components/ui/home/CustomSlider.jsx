@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import Product from "./Product";
+import Product from "../product/Product";
 const settings = {
   dots: false,
   infinite: true,
@@ -34,8 +34,10 @@ const CustomSlider = () => {
       <div>
         <Slider {...settings}>
           {products?.map((el) => {
-           // console.log("Product Data:", el); // Log the product data here
-            return <Product key={el._id} productData={el} showOptions={false} />;
+            // console.log("Product Data:", el); // Log the product data here
+            return (
+              <Product key={el._id} productData={el} showOptions={false} />
+            );
           })}
         </Slider>
       </div>

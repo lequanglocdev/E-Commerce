@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 // import Swal from "sweetalert2";
-import { logoutSuccess } from "../redux/user/userSlice";
+import { logoutSuccess } from "../../../redux/user/userSlice";
 
 const TopHeader = () => {
   const { current, isLoggedIn } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  console.log("cyren",current)
+  console.log("cyren", current);
   return (
     <div className="h-[38px] w-[1446px] bg-main flex items-center justify-center">
       <div className="w-main flex items-center justify-between">

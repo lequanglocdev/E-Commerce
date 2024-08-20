@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
-import { InputField, Button } from "../../components";
+import { InputField } from "../../../components/templates";
+import { Button } from "../../../components/templates";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
-import path from "../../utils/path";
-import { validate } from "../../utils/helper";
+import path from "../../../utils/path";
+import { validate } from "../../../utils/helper";
 const Register = () => {
   const navigate = useNavigate();
   const [payload, setPayload] = useState({
@@ -22,7 +23,7 @@ const Register = () => {
         const res = await fetch("/api/user/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload,),
+          body: JSON.stringify(payload),
         });
 
         const data = await res.json();
